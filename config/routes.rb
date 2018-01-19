@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  get "all_products_url" => 'products#all_products_method'
+ get "/products" => 'products#index'
+ post "/prodcuts" => 'products#create'
+ get "/products/:id" => 'products#show'
 end
