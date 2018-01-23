@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
   def create 
     product = Product.new(
                          name: params[:name],
+                         # in_stock?: params[:in_stock?],
                          price: params[:price], 
                          image_url: params[:image_url],
                          description: params[:description]
@@ -20,5 +21,25 @@ class ProductsController < ApplicationController
     product = Product.find(params[:id])
     render json: product.as_json 
   end 
+
+  def update 
+    product = Product.find(params[:id])
+
+    product.name = params[:name] || product.name
+    # product.in_stock? = params[:in_stock?] || product.in_stock?
+    product.price = params[:price] || product.price
+    product.image_url = params[:image_url] || product.image_url
+    product.description = params[:description] || product.description
+    product.save
+
+    render json: product.as_json 
+  end 
+
+  def destroy 
+    product = Product.find(params[:id])
+    product.destroy
+    render json: { message: "Successfully destroyed product ##{product.id}."}
+  end 
+
 
 end
