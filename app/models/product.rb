@@ -1,4 +1,5 @@
-class Product < ApplicationRecord
+ class Product < ApplicationRecord
+  belongs_to :supplier 
 
   validates :name, presence: true
   validates :name, uniqueness: true
@@ -24,17 +25,4 @@ class Product < ApplicationRecord
     tax + price 
   end 
 
-  def as_json
-    {
-      id: id, 
-      name: name,
-      in_stock?: in_stock?,
-      discounted?: discounted?,
-      tax: tax,
-      price: price,
-      total: total, 
-      image_url: image_url,
-      description: description
-      }
-  end 
 end
