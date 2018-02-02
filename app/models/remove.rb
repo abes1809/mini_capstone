@@ -1,0 +1,2 @@
+class Remove < ApplicationRecord
+end
