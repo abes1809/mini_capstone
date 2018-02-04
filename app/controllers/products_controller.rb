@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_admin only [:create, :update, :destory]
+  before_action :authenticate_admin, only: [:create, :update, :destory]
 
   def index 
     
@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
       @products = @products.order(sort_attribute => :asc)
     end 
 
-    input_category = params:[:cateogry]
+    category_name = params[:category]
     if category_name  
       @products = category.find_by(name: category_name).products 
     end
