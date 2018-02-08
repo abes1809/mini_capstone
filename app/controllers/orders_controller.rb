@@ -7,25 +7,9 @@ class OrdersController < ApplicationController
   end 
 
   def create
-    @carted_products = current_user.carted_products.where(status: "carted")
+    @carted_products = current_user.cart
 
-    subtotal = 0 
-
-    @carted_products.each do |carted_product|
-      subtotal += carted_product.quantity * carted_product.product.price 
-    end 
-
-    tax = subtotal * 0.09
-    total = subtotal + tax 
-
-    @order = Order.new(
-                      user_id: current_user.id,
-                      subtotal: subtotal, 
-                      tax: tax,
-                      total: total 
-                      )
-
-    # @order.calculate_totals 
+    @order = Order.new(user_id: current_user.id)
 
     if @order.save 
       @carted_products.each do |carted_product|
@@ -35,10 +19,12 @@ class OrdersController < ApplicationController
         else 
           render json: {errors: carted_product.errors.full_message}, status: :bad_request
         end 
-      end 
+      end
+    @order.calculate_totals
     render 'show.json.jbuilder'
     else 
       render json: {errors: order.errors.full_message}, status: :bad_request
     end 
   end 
+
 end
