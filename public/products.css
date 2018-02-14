@@ -1,1 +1,4 @@
-products.css
+body {
+  font-family: Garamond,Baskerville,"Baskerville Old Face","Hoefler Text","Times New Roman",serif;
+  background-image: url('binding_light.png');
+}
